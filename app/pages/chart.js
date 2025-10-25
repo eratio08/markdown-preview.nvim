@@ -1,7 +1,7 @@
 import Chart from 'chart.js'
 
-function render () {
-  document.querySelectorAll('.chartjs').forEach(element => {
+function render() {
+  document.querySelectorAll('.chartjs').forEach((element) => {
     try {
       // eslint-disable-next-line no-new
       new Chart(element, JSON.parse(element.textContent))
@@ -20,7 +20,8 @@ const chartPlugin = (md) => {
       try {
         const json = JSON.parse(code)
         return `<canvas class="chartjs">${JSON.stringify(json)}</canvas>`
-      } catch (e) { // JSON.parse exception
+      } catch (e) {
+        // JSON.parse exception
         return `<pre>${e}</pre>`
       }
     }
@@ -30,5 +31,5 @@ const chartPlugin = (md) => {
 
 export default {
   render,
-  chartPlugin
+  chartPlugin,
 }

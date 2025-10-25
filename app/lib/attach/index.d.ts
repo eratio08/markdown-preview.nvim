@@ -1,19 +1,19 @@
-import { Attach, NeovimClient } from '@chemzqm/neovim';
+import { type Attach, type NeovimClient } from '@chemzqm/neovim';
 interface IApp {
-    refreshPage: ((param: {
+    refreshPage: (param: {
         bufnr: number | string;
         data: any;
-    }) => void);
-    closePage: ((params: {
+    }) => void;
+    closePage: (params: {
         bufnr: number | string;
-    }) => void);
-    closeAllPages: (() => void);
-    openBrowser: ((params: {
+    }) => void;
+    closeAllPages: () => void;
+    openBrowser: (params: {
         bufnr: number | string;
-    }) => void);
+    }) => void;
 }
 interface IPlugin {
-    init: ((app: IApp) => void);
+    init: (app: IApp) => void;
     nvim: NeovimClient;
 }
 export default function (options: Attach): IPlugin;

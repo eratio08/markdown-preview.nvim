@@ -5,7 +5,7 @@ const MSG_PREFIX = '[markdown-preview.nvim]'
 
 const plugin = attach({
   reader: process.stdin,
-  writer: process.stdout
+  writer: process.stdout,
 })
 
 process.on('uncaughtException', function (err) {
@@ -18,7 +18,10 @@ process.on('uncaughtException', function (err) {
 
 process.on('unhandledRejection', function (reason, p) {
   if (plugin.nvim) {
-    plugin.nvim.call('mkdp#util#echo_messages', ['Error', [`${MSG_PREFIX} UnhandledRejection`, `${reason}`]])
+    plugin.nvim.call('mkdp#util#echo_messages', [
+      'Error',
+      [`${MSG_PREFIX} UnhandledRejection`, `${reason}`],
+    ])
   }
   logger.error('unhandledRejection ', p, reason)
 })

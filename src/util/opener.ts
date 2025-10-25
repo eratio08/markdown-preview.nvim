@@ -1,12 +1,12 @@
 /*
  * fork from https://github.com/domenic/opener
  */
-import childProcess from 'child_process'
-import os from 'os'
+import childProcess from 'node:child_process'
+import os from 'node:os'
 
 module.exports = function opener(
   args: string | string[],
-  tool: string | undefined
+  tool: string | undefined,
 ) {
   let platform = process.platform
   args = [].concat(args)
@@ -16,12 +16,15 @@ module.exports = function opener(
   // this specific case we need to treat it as actually being Windows.
   // The "Windows-way" of opening things through cmd.exe works just fine here,
   // whereas using xdg-open does not, since there is no X Windows in WSL.
-  if (platform === 'linux' && os.release().toLowerCase().indexOf('microsoft') !== -1) {
+  if (
+    platform === 'linux' &&
+    os.release().toLowerCase().indexOf('microsoft') !== -1
+  ) {
     platform = 'win32'
   }
 
   // http://stackoverflow.com/q/1480971/3191, but see below for Windows.
-  let command
+  let command: any
   switch (platform) {
     case 'win32': {
       command = 'cmd.exe'
@@ -55,7 +58,7 @@ module.exports = function opener(
     // so we need to add a dummy empty-string window title: http://stackoverflow.com/a/154090/3191
     //
     // Additionally, on Windows ampersand needs to be escaped when passed to "start"
-    args = args.map(value => {
+    args = args.map((value) => {
       return value.replace(/&/g, '^&')
     })
     args = ['/c', 'start', '""'].concat(args)
@@ -63,6 +66,6 @@ module.exports = function opener(
 
   return childProcess.spawn(command, args, {
     shell: false,
-    detached: true
+    detached: true,
   })
 }

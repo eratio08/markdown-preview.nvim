@@ -10,7 +10,7 @@ function default_1(options) {
         const opts = args[0] || args;
         const bufnr = opts.bufnr;
         const buffers = yield nvim.buffers;
-        const buffer = buffers.find(b => b.id === bufnr);
+        const buffer = buffers.find((b) => b.id === bufnr);
         if (method === 'refresh_content') {
             const winline = yield nvim.call('winline');
             const currentWindow = yield nvim.window;
@@ -33,18 +33,18 @@ function default_1(options) {
                     pageTitle,
                     theme,
                     name,
-                    content
-                }
+                    content,
+                },
             });
         }
         else if (method === 'close_page') {
             app.closePage({
-                bufnr
+                bufnr,
             });
         }
         else if (method === 'open_browser') {
             app.openBrowser({
-                bufnr
+                bufnr,
             });
         }
     }));
@@ -58,14 +58,14 @@ function default_1(options) {
         .then((channelId) => tslib_1.__awaiter(this, void 0, void 0, function* () {
         yield nvim.setVar('mkdp_node_channel_id', channelId);
     }))
-        .catch(e => {
+        .catch((e) => {
         logger.error('channelId: ', e);
     });
     return {
         nvim,
         init: (param) => {
             app = param;
-        }
+        },
     };
 }
 exports.default = default_1;

@@ -22,12 +22,12 @@ export const renderFlowchart = () => {
   if (!list) {
     return
   }
-  list.forEach(item => {
+  list.forEach((item) => {
     try {
-      let d = window.flowchart.parse(item.textContent);
+      let d = window.flowchart.parse(item.textContent)
       item.className = ''
       item.textContent = ''
-      d.drawSVG(item, options);
+      d.drawSVG(item, options)
       d = null
     } catch (e) {
       console.error(`Parse flowchart Error: ${e}`)

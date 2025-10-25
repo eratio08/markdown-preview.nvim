@@ -1,7 +1,7 @@
-import fs from 'fs'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
 import log4js from 'log4js'
-import os from 'os'
-import path from 'path'
 
 const MAX_LOG_SIZE = 1024 * 1024
 const MAX_LOG_BACKUPS = 10
@@ -28,13 +28,13 @@ if (!isRoot) {
           type: 'pattern',
           // Format log in following pattern:
           // yyyy-MM-dd HH:mm:ss.mil $Level (pid:$pid) $categroy - $message.
-          pattern: `%d{yyyy-MM-dd hh:mm:ss} %p (pid:${process.pid}) [%c] - %m`
-        }
-      }
+          pattern: `%d{yyyy-MM-dd hh:mm:ss} %p (pid:${process.pid}) [%c] - %m`,
+        },
+      },
     },
     categories: {
-      default: { appenders: ['out'], level }
-    }
+      default: { appenders: ['out'], level },
+    },
   })
 }
 

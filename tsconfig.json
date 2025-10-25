@@ -7,20 +7,13 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "lib": ["dom", "esnext"],
     "baseUrl": ".",
     "outDir": "./app/lib",
     "rootDir": "./src",
     "importHelpers": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "./src"
-  ],
-  "exclude": [
-    "./lib"
-  ]
+  "include": ["./src"],
+  "exclude": ["./lib"]
 }

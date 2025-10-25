@@ -13,10 +13,6 @@
     "object-literal-sort-keys": false
   },
   "linterOptions": {
-    "exclude": [
-      "./lib/",
-      "./node_modules"
-    ]
+    "exclude": ["./lib/", "./node_modules"]
   }
 }
-

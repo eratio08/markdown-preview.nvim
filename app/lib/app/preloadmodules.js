@@ -10,5 +10,5 @@ exports.default = {
     log4js,
     tslib,
     'socket.io': socketIO,
-    'msgpack-lite': msgpackLite
+    'msgpack-lite': msgpackLite,
 };

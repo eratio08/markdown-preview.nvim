@@ -1,6 +1,6 @@
 import getRender from 'md-it-meta/lib/meta'
 
-export const meta = separates  => {
+export const meta = (separates) => {
   if (separates === void 0) {
     separates = [['---'], ['---']]
   }
@@ -13,13 +13,13 @@ export const meta = separates  => {
       (...args) => {
         try {
           return render(...args)
-        } catch(e) {
+        } catch (e) {
           console.log('md-it-meta', e)
         }
       },
       {
-        alt: []
-      }
-    );
-  };
+        alt: [],
+      },
+    )
+  }
 }

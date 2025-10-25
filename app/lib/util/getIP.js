@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getIP = void 0;
 function getIP() {
-    const interfaces = require('os').networkInterfaces();
+    const interfaces = require('node:os').networkInterfaces();
     let IP = '';
-    Object.keys(interfaces).some(devName => {
+    Object.keys(interfaces).some((devName) => {
         const iface = interfaces[devName];
         for (const alias of iface) {
             if (alias.family === 'IPv4' &&

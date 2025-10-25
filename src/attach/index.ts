@@ -1,42 +1,29 @@
-import { attach, Attach, NeovimClient } from '@chemzqm/neovim'
+import { type Attach, attach, type NeovimClient } from '@chemzqm/neovim'
 
 const logger = require('../util/logger')('attach') // tslint:disable-line
 
 interface IApp {
-  refreshPage: ((
-    param: {
-      bufnr: number | string
-      data: any
-    }
-  ) => void)
-  closePage: ((
-    params: {
-      bufnr: number | string
-    }
-  ) => void)
-  closeAllPages: (() => void)
-  openBrowser: ((
-    params: {
-      bufnr: number | string
-    }
-  ) => void)
+  refreshPage: (param: { bufnr: number | string; data: any }) => void
+  closePage: (params: { bufnr: number | string }) => void
+  closeAllPages: () => void
+  openBrowser: (params: { bufnr: number | string }) => void
 }
 
 interface IPlugin {
-  init: ((app: IApp) => void)
+  init: (app: IApp) => void
   nvim: NeovimClient
 }
 
 let app: IApp
 
-export default function(options: Attach): IPlugin {
+export default function (options: Attach): IPlugin {
   const nvim: NeovimClient = attach(options)
 
   nvim.on('notification', async (method: string, args: any[]) => {
     const opts = args[0] || args
     const bufnr = opts.bufnr
     const buffers = await nvim.buffers
-    const buffer = buffers.find(b => b.id === bufnr)
+    const buffer = buffers.find((b) => b.id === bufnr)
     if (method === 'refresh_content') {
       const winline = await nvim.call('winline')
       const currentWindow = await nvim.window
@@ -59,16 +46,16 @@ export default function(options: Attach): IPlugin {
           pageTitle,
           theme,
           name,
-          content
-        }
+          content,
+        },
       })
     } else if (method === 'close_page') {
       app.closePage({
-        bufnr
+        bufnr,
       })
     } else if (method === 'open_browser') {
       app.openBrowser({
-        bufnr
+        bufnr,
       })
     }
   })
@@ -81,10 +68,10 @@ export default function(options: Attach): IPlugin {
   })
 
   nvim.channelId
-    .then(async channelId => {
+    .then(async (channelId) => {
       await nvim.setVar('mkdp_node_channel_id', channelId)
     })
-    .catch(e => {
+    .catch((e) => {
       logger.error('channelId: ', e)
     })
 
@@ -92,6 +79,6 @@ export default function(options: Attach): IPlugin {
     nvim,
     init: (param: IApp) => {
       app = param
-    }
+    },
   }
 }

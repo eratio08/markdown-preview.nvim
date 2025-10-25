@@ -1,7 +1,7 @@
-import fs from 'fs'
-import Module from 'module'
-import path from 'path'
-import vm from 'vm'
+import fs from 'node:fs'
+import Module from 'node:module'
+import path from 'node:path'
+import vm from 'node:vm'
 
 import modules from './preloadmodules'
 
@@ -18,15 +18,18 @@ export default function load(scriptPath) {
     ...global,
     exports: userModule.exports,
     module: userModule,
-    require: name => {
+    require: (name) => {
       if (modules[name]) {
         return modules[name]
       }
       try {
         return userModule.require(name)
-      } catch (e) {
+      } catch (_e) {
         let loadScript = path.join(path.dirname(scriptPath), name)
-        if (fs.existsSync(loadScript) && fs.statSync(loadScript).isDirectory()) {
+        if (
+          fs.existsSync(loadScript) &&
+          fs.statSync(loadScript).isDirectory()
+        ) {
           loadScript = path.join(loadScript, 'index.js')
         } else if (!fs.existsSync(loadScript)) {
           loadScript = `${loadScript}.js`

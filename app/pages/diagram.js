@@ -22,14 +22,14 @@ export const renderDiagram = () => {
   if (!list) {
     return
   }
-  list.forEach(item => {
+  list.forEach((item) => {
     try {
       let d = window.Diagram.parse(item.textContent)
       item.className = ''
       item.textContent = ''
       d.drawSVG(item, {
         theme: 'hand',
-        ...options
+        ...options,
       })
       d = null
     } catch (e) {

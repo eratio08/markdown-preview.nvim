@@ -1,8 +1,8 @@
-import {escape} from './utils';
+import { escape } from './utils'
 
 /*
  * global mermaid
-*/
+ */
 const mermaidChart = (code) => {
   try {
     // eslint-disable-next-line
@@ -22,10 +22,12 @@ const MermaidPlugin = (md) => {
       return mermaidChart(code)
     }
     const firstLine = code.split(/\n/)[0].trim()
-    if (firstLine === 'gantt' ||
+    if (
+      firstLine === 'gantt' ||
       firstLine === 'sequenceDiagram' ||
       firstLine === 'erDiagram' ||
-      firstLine.match(/^graph (?:TB|BT|RL|LR|TD);?$/)) {
+      firstLine.match(/^graph (?:TB|BT|RL|LR|TD);?$/)
+    ) {
       return mermaidChart(code)
     }
     return origin(tokens, idx, options, env, slf)

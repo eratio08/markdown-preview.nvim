@@ -1,7 +1,7 @@
 export function getIP(): string {
-  const interfaces = require('os').networkInterfaces()
+  const interfaces = require('node:os').networkInterfaces()
   let IP = ''
-  Object.keys(interfaces).some(devName => {
+  Object.keys(interfaces).some((devName) => {
     const iface = interfaces[devName]
     for (const alias of iface) {
       if (
@@ -17,4 +17,3 @@ export function getIP(): string {
   })
   return IP
 }
-
