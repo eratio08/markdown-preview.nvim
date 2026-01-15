@@ -1,28 +1,27 @@
-import React from 'react'
-import Head from 'next/head'
-import io from 'socket.io-client'
-import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
-import emoji from 'markdown-it-emoji'
-import taskLists from 'markdown-it-task-lists'
-import footnote from 'markdown-it-footnote'
+import MarkdownIt from 'markdown-it'
 import markdownItAnchor from 'markdown-it-anchor'
-import markdownItToc from 'markdown-it-toc-done-right'
 import markdownDeflist from 'markdown-it-deflist'
-
-import mk from './katex'
-import chart from './chart'
-import mkitMermaid from './mermaid'
-import linenumbers from './linenumbers'
-import image from './image'
-import diagram, { renderDiagram } from './diagram'
-import flowchart, { renderFlowchart } from './flowchart'
-import dot, { renderDot } from './dot'
+import emoji from 'markdown-it-emoji'
+import footnote from 'markdown-it-footnote'
+import taskLists from 'markdown-it-task-lists'
+import markdownItToc from 'markdown-it-toc-done-right'
+import Head from 'next/head'
+import React from 'react'
+import io from 'socket.io-client'
 import blockUml from './blockPlantuml'
+import chart from './chart'
+import diagram, { renderDiagram } from './diagram'
+import dot, { renderDot } from './dot'
+import flowchart, { renderFlowchart } from './flowchart'
+import image from './image'
+import mk from './katex'
+import linenumbers from './linenumbers'
+import markdownImSize from './markdown-it-imsize'
+import mkitMermaid from './mermaid'
+import { meta } from './meta'
 import codeUml from './plantuml'
 import scrollToLine from './scroll'
-import { meta } from './meta'
-import markdownImSize from './markdown-it-imsize'
 import { escape } from './utils'
 
 const anchorSymbol =
@@ -296,6 +295,15 @@ export default class PreviewPage extends React.Component {
               })
               // eslint-disable-next-line
               mermaid.init(undefined, document.querySelectorAll('.mermaid'))
+              mermaid.registerIconPacks([
+                {
+                  name: 'logos',
+                  loader: () =>
+                    fetch(
+                      'https://unpkg.com/@iconify-json/logos@1/icons.json',
+                    ).then((res) => res.json()),
+                },
+              ])
             } catch (e) {}
 
             chart.render()
